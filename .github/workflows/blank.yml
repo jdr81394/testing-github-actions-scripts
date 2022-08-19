@@ -27,8 +27,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v27
         with:
-          files: "*.json"
-          # path: config
+          files: 2home.json
             
       - name: Run step if any of the listed files above change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
