@@ -23,6 +23,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Checkout into dir1
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: config
+
       - name: Get specific changed files
         id: changed-files-specific
         uses: tj-actions/changed-files@v27
@@ -30,11 +36,9 @@ jobs:
           files: |
             home.json
             *.json
-            **
-          path: config
-
+            
       - name: Run step if any of the listed files above change
-        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           echo "One or more files listed above has changed."
 
