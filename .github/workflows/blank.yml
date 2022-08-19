@@ -22,15 +22,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
       - name: Get specific changed files
         id: changed-files-specific
         uses: tj-actions/changed-files@v27
         with:
-          files: 2home.json
+          files: test.json
             
       - name: Run step if any of the listed files above change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           echo "One or more files listed above has changed."
+
+      - name: Run step if any of the listed files above change
+        if: steps.changed-files-specific.outputs.any_modified == 'true'
+        run: |
+          echo "One or more files listed above any modified."
+
+      - name: Run step for all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
 
