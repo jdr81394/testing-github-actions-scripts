@@ -22,42 +22,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-#          submodules: true # OR "recursive" -> To include all changed submodule files.
-
-      - name: Get changed files using defaults
-        id: changed-files
-        uses: tj-actions/changed-files@v27
-
-      - name: Get changed files using a comma separator
-        id: changed-files-comma
-        uses: tj-actions/changed-files@v27
-        with:
-          separator: ","
-
-      - name: List all added files
-        run: |
-          for file in ${{ steps.changed-files.outputs.added_files }}; do
-            echo "$file was added"
-          done
-
-      - name: Run step when a file changes
-        if: contains(steps.changed-files.outputs.modified_files, 'my-file.txt')
-        run: |
-          echo "Your my-file.txt file has been modified."
-
-      - name: Run step when a file has been deleted
-        if: contains(steps.changed-files.outputs.deleted_files, 'test.txt')
-        run: |
-          echo "Your test.txt file has been deleted."
 
       - name: Get specific changed files
         id: changed-files-specific
         uses: tj-actions/changed-files@v27
         with:
           files: |
-            config
+            *.json
+          working-directory: config
 
       - name: Run step if any of the listed files above change
         if: steps.changed-files-specific.outputs.any_changed == 'true'
