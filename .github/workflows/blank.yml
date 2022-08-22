@@ -35,7 +35,7 @@ jobs:
             echo "This is the file" $file
             configPaths=()
             echo "This after config paths"
-            isConfig=$( echo "$file" | grep -e config/ )
+            isConfig=$( echo "$file" | grep -e "config/")
             echo "This is isConfig" $isConfig
             if [[ $isConfig ]]; then
                 configPaths+=($file)
