@@ -31,8 +31,9 @@ jobs:
 
       - name: Run step for all changed files
         run: |
+          configPaths=()
+
           for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-            echo $file
             if [[ ${file:0:7} = "config/" ]]; then
                 configPaths+=($file)
             fi;
@@ -45,5 +46,5 @@ jobs:
         run: |
           echo "$GCP_SA_KEY" > ${HOME}/service-account-key.json
           echo ${HOME}/service-account-key.json
-          gcloud auth activate-service-account --key-file=${HOME}/service-account-key.json --project=$GCP_PROJECT_ID
+          # gcloud auth activate-service-account --key-file=${HOME}/service-account-key.json --project=$GCP_PROJECT_ID
 
