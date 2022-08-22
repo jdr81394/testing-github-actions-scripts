@@ -33,7 +33,7 @@ jobs:
         run: |
           for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
             echo $file
-            if [[ ${$file:0:6} = "config/" ]]; then
+            if [[ ${file:0:7} = "config/" ]]; then
                 configPaths+=($file)
             fi;
           done
