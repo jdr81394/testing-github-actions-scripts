@@ -32,9 +32,11 @@ jobs:
       - name: Run step for all changed files
         run: |
           for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-            echo $file
+            echo "This is the file" $file
             configPaths=()
+            echo "This after config paths"
             isConfig=$( echo "$file" | grep -e config/ )
+            echo "This is isConfig" $isConfig
             if [[ $isConfig ]]; then
                 configPaths+=($file)
             fi;
