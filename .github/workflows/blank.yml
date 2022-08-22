@@ -44,5 +44,6 @@ jobs:
       - name: Authenticate into GCP
         run: |
           echo "$GCP_SA_KEY" > ${HOME}/service-account-key.json
+          echo ${HOME}/service-account-key.json
           gcloud auth activate-service-account --key-file=${HOME}/service-account-key.json --project=$GCP_PROJECT_ID
 
