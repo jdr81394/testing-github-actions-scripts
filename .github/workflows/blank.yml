@@ -55,7 +55,7 @@ jobs:
 
       - name: Get all buckets that exist and put into Github ENV
         run: |
-          gcpBuckets=$(gsutil ls ${{ env.STAGING_EN }})
+          gcpBuckets=$(gsutil ls "${{ env.STAGING_EN }}" )
           echo "gcpBuckets=$gcpBuckets" >> $GITHUB_ENV
 
       - name: Loop through the GCP buckets, and see if any of the buckets match in name
