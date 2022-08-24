@@ -55,10 +55,12 @@ jobs:
 
       - name: Loop through the GCP buckets, and add the files
         run: |
-          echo $CONFIG_PATHS
+          echo "config paths: " $CONFIG_PATHS
           buckets=$( gsutil ls "${{ env.STAGING }}" )
+          echo "Buckets: " $buckets
           for changedFile in $CONFIG_PATHS; do
             for bucket in $buckets; do
+                echo "This is the bucket: " $bucket
                 p=$bucket$changedFile 
                 echo THIS IS: "$p"
                 gsutil cp $changedFile "$p"
