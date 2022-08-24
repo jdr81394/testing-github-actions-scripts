@@ -53,21 +53,38 @@ jobs:
 
           echo "configPaths=${configPaths[@]}" >> $GITHUB_ENV
 
-      - name: Get all buckets that exist and put into Github ENV
+      - name: Loop through the GCP buckets, and add the files
         run: |
-          gcpBuckets=$(gsutil ls "${{ env.STAGING_EN }}" )
-          echo "gcpBuckets=$gcpBuckets" >> $GITHUB_ENV
-
-      - name: Loop through the GCP buckets, and see if any of the buckets match in name
-        run: |
+          buckets=$( gsutil ls "${{ env.STAGING_EN }}" )
           for changedFile in $CONFIG_PATHS; do
-            for bucketFile in $GCPBUCKETS; do
-              fileInBucket=$( echo $bucketFile | rev | cut -d'/' -f1 | rev)
-              if [[ changedFile == fileInBucket ]]; then
-                gsutil cp changedFile "$STAGING_EN"/"changedFile"
-              fi;
+            for bucket in $buckets; do
+                gsutil cp $changedFile "$STAGING_EN"/"$bucket"/"$changedFile"
             done;
           done;
         env:
           CONFIG_PATHS: ${{ env.configPaths }}
-          GCP_BUCKETS: ${{ env.gcpBuckets }}
+        
+
+      # - name: Get all bucket files that exist and put into Github ENV
+      #   run: |
+      #     gsbuckets=$(gsutil ls "${{ env.STAGING_EN }}" )
+      #     fileArr=()
+      #     for bucketFile in $gsbuckets; do
+      #       fileArr+=$( echo $bucketFile | rev | cut -d'/' -f1 | rev )
+      #     done;
+
+      #     echo "gcpBuckets=$fileArr" >> $GITHUB_ENV
+
+      # - name: Loop through the GCP buckets, and see if any of the buckets match in name
+      #   run: |
+      #     for changedFile in $CONFIG_PATHS; do
+      #       for bucketFile in $GCP_BUCKETS; do
+      #         fileInBucket=$( echo $bucketFile | rev | cut -d'/' -f1 | rev)
+      #         if [[ changedFile == fileInBucket ]]; then
+      #           gsutil cp changedFile "$STAGING_EN"/"changedFile"
+      #         fi;
+      #       done;
+      #     done;
+      #   env:
+      #     CONFIG_PATHS: ${{ env.configPaths }}
+      #     GCP_BUCKETS: ${{ env.gcpBuckets }}
