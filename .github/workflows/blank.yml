@@ -55,17 +55,17 @@ jobs:
 
       - name: Loop through the GCP buckets, and add the files
         run: |
-          buckets=$( gsutil ls "${{ env.STAGING_EN }}" )
+          buckets=$( gsutil ls "${{ env.STAGING }}" )
           for changedFile in $CONFIG_PATHS; do
             for bucket in $buckets; do
-                gsutil cp $changedFile "$STAGING_EN"/"$bucket"/"$changedFile"
+                gsutil cp $changedFile "$STAGING"/"$bucket"/"$changedFile"
             done;
           done;
         
 
       # - name: Get all bucket files that exist and put into Github ENV
       #   run: |
-      #     gsbuckets=$(gsutil ls "${{ env.STAGING_EN }}" )
+      #     gsbuckets=$(gsutil ls "${{ env.STAGING }}" )
       #     fileArr=()
       #     for bucketFile in $gsbuckets; do
       #       fileArr+=$( echo $bucketFile | rev | cut -d'/' -f1 | rev )
@@ -79,7 +79,7 @@ jobs:
       #       for bucketFile in $GCP_BUCKETS; do
       #         fileInBucket=$( echo $bucketFile | rev | cut -d'/' -f1 | rev)
       #         if [[ changedFile == fileInBucket ]]; then
-      #           gsutil cp changedFile "$STAGING_EN"/"changedFile"
+      #           gsutil cp changedFile "$STAGING"/"changedFile"
       #         fi;
       #       done;
       #     done;
