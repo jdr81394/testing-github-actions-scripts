@@ -63,7 +63,7 @@ jobs:
                 echo "This is the bucket: $bucket "
                 p=$bucket$changedFile 
                 echo THIS IS: "$p"
-                gsutil cp $changedFile "$p"
+                gsutil cp $changedFile "$p" || continue
             done;
           done;
         
