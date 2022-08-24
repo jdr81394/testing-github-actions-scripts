@@ -20,8 +20,8 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env: 
-      STAGING_EN: gs://locals-1/locales-staging/locales/en/
-      STAGING_DE: gs://locals-1/locales-staging/locales/de/
+      STAGING_EN: "gs://locals-1/locales-staging/locales/en/"
+      STAGING_DE: "gs://locals-1/locales-staging/locales/de/"
       PRODUCTION: ""
 
     steps:
@@ -50,11 +50,12 @@ jobs:
                 configPaths+=(${file:7}})
             fi;
           done
+
           echo "configPaths=${configPaths[@]}" >> $GITHUB_ENV
 
       - name: Get all buckets that exist and put into Github ENV
         run: |
-          gcpBuckets=$(gsutil ls ${{ env.STAGING_EN }} )
+          gcpBuckets=$(gsutil ls ${{ env.STAGING_EN }})
           echo "gcpBuckets=$gcpBuckets" >> $GITHUB_ENV
 
       - name: Loop through the GCP buckets, and see if any of the buckets match in name
