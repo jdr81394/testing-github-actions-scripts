@@ -55,6 +55,8 @@ jobs:
 
       - name: Loop through the GCP buckets, and add the files
         run: |
+          pwd
+          ls 
           echo "config paths: $CONFIG_PATHS"
           buckets=$( gsutil ls "${{ env.STAGING }}" )
           echo "Buckets:  $buckets"
