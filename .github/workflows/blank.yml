@@ -20,7 +20,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env: 
-      STAGING: "gs://locals-1/locales-staging/locales/en/"
+      STAGING: "gs://locals-1/locales-staging/locales/"
       PRODUCTION: ""
 
     steps:
@@ -58,8 +58,8 @@ jobs:
           buckets=$( gsutil ls "${{ env.STAGING }}" )
           for changedFile in $CONFIG_PATHS; do
             for bucket in $buckets; do
-                echo THIS IS: "$STAGING"/"$bucket"/"$changedFile"
-                gsutil cp $changedFile "$STAGING"/"$bucket"/"$changedFile"
+                echo THIS IS: "$bucket""$changedFile"
+                gsutil cp $changedFile "$bucket""$changedFile"
             done;
           done;
         
