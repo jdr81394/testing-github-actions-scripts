@@ -51,7 +51,8 @@ jobs:
             fi;
           done
 
-          echo "configPaths=${configPaths[@]}" >> $GITHUB_ENV
+          echo "This is the config path: $configPaths"
+          echo "CONFIG_PATHS=${configPaths[@]}" >> $GITHUB_ENV
 
       - name: Loop through the GCP buckets, and add the files
         run: |
@@ -61,8 +62,6 @@ jobs:
                 gsutil cp $changedFile "$STAGING_EN"/"$bucket"/"$changedFile"
             done;
           done;
-        env:
-          CONFIG_PATHS: ${{ env.configPaths }}
         
 
       # - name: Get all bucket files that exist and put into Github ENV
