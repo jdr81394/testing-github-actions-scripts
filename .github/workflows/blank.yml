@@ -58,6 +58,7 @@ jobs:
           buckets=$( gsutil ls "${{ env.STAGING }}" )
           for changedFile in $CONFIG_PATHS; do
             for bucket in $buckets; do
+                echo THIS IS: "$STAGING"/"$bucket"/"$changedFile"
                 gsutil cp $changedFile "$STAGING"/"$bucket"/"$changedFile"
             done;
           done;
