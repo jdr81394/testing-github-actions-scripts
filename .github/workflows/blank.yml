@@ -55,6 +55,7 @@ jobs:
 
       - name: Loop through the GCP buckets, and add the files
         run: |
+          cd config 
           pwd
           ls 
           echo "config paths: $CONFIG_PATHS"
@@ -65,7 +66,7 @@ jobs:
                 echo "This is the bucket: $bucket "
                 p=$bucket$changedFile 
                 echo THIS IS: "$p"
-                gsutil cp ./config/"$changedFile" "$p" || continue
+                gsutil cp "$changedFile" "$p" || continue
             done;
           done;
 
