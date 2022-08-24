@@ -53,11 +53,11 @@ jobs:
           echo "This is the config path: $configPaths"
           echo "CONFIG_PATHS=${configPaths[@]}" >> $GITHUB_ENV
 
+      - run: gsutil version -l
+
       - name: Loop through the GCP buckets, and add the files
         run: |
           cd config 
-          pwd
-          ls 
           echo "config paths: $CONFIG_PATHS"
           buckets=$( gsutil ls "${{ env.STAGING }}" )
           echo "Buckets:  $buckets"
