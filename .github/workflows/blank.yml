@@ -73,7 +73,7 @@ jobs:
 
       # gs://locals-1/locales-staging/locales/en/home.json
       # gs://locals-1/locales-staging/locales/en/home.json
-        
+      #
 
       # - name: Get all bucket files that exist and put into Github ENV
       #   run: |
