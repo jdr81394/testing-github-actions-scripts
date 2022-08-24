@@ -57,6 +57,7 @@ jobs:
 
       - name: Loop through the GCP buckets, and add the files
         run: |
+          gcloud components update
           cd config 
           echo "config paths: $CONFIG_PATHS"
           buckets=$( gsutil ls "${{ env.STAGING }}" )
