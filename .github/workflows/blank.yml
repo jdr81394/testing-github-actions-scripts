@@ -42,16 +42,15 @@ jobs:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
       - name: Run step for all changed files and put into Github Env
-          id: config-paths
-          run: |
-            configPaths=()
+        run: |
+          configPaths=()
 
-            for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-              if [[ ${file:0:7} = "config/" ]]; then
-                  configPaths+=(${file:7}})
-              fi;
-            done
-            echo "configPaths=${configPaths[@]}" >> $GITHUB_ENV
+          for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
+            if [[ ${file:0:7} = "config/" ]]; then
+                configPaths+=(${file:7}})
+            fi;
+          done
+          echo "configPaths=${configPaths[@]}" >> $GITHUB_ENV
 
       - name: Get all buckets that exist and put into Github ENV
         run: |
