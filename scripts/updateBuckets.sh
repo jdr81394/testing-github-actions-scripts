@@ -22,7 +22,7 @@ echo "Buckets:  $buckets"
 cd config 
 
 for changedFile in $configPaths; do
-    for bucket in $buckets; do
+    for bucket in $1en/ $1de/; do
         echo "This is the bucket: $bucket "
         p=$bucket$changedFile 
         echo THIS IS: "$p"
