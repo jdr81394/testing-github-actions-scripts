@@ -12,7 +12,7 @@ done
 echo "This is the config path: $configPaths"
 echo "first argument: $1"
 
-buckets=$( gsutil ls "${{ $1 }}" )
+buckets=$( gsutil ls $1 )
 
 echo "Buckets:  $buckets"
 #  Loop through the GCP buckets, and add the files
