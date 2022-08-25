@@ -3,6 +3,8 @@
 #  Run step for all changed translation files files and put into Github Env
 englishFilePaths=()
 
+echo "2 : $2";
+
 for file in $2; do
     echo "File: $file"
     if [[ ${file:0:7} = "public/locales/en/" ]]; then
