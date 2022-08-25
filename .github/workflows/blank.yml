@@ -40,36 +40,44 @@ jobs:
           GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Run step for all changed files and put into Github Env
-        run: |
-          configPaths=()
+      
+      - name: Run Update
+          run: |
+            chmod +x ./scripts/updateBuckets.sh 
+            ./scripts/updateBuckets.sh ${{ env.STAGING }} ${{ env.ALL_CHANGED_FILES }}
+          env: 
+            ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
-          for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-            if [[ ${file:0:7} = "config/" ]]; then
-                configPaths+=(${file:7}})
-            fi;
-          done
+      # - name: Run step for all changed files and put into Github Env
+      #   run: |
+      #     configPaths=()
 
-          echo "This is the config path: $configPaths"
-          echo "CONFIG_PATHS=${configPaths[@]}" >> $GITHUB_ENV
+      #     for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
+      #       if [[ ${file:0:7} = "config/" ]]; then
+      #           configPaths+=(${file:7}})
+      #       fi;
+      #     done
 
-      - run: gsutil version -l
+      #     echo "This is the config path: $configPaths"
+      #     echo "CONFIG_PATHS=${configPaths[@]}" >> $GITHUB_ENV
 
-      - name: Loop through the GCP buckets, and add the files
-        run: |
-          cd config 
-          echo "config paths: $CONFIG_PATHS"
-          buckets=$( gsutil ls "${{ env.STAGING }}" )
-          echo "Buckets:  $buckets"
-          for changedFile in $CONFIG_PATHS; do
-            for bucket in $buckets; do
-                echo "This is the bucket: $bucket "
-                p=$bucket$changedFile 
-                echo THIS IS: "$p"
-                echo "this is the changed file: " $changedFile
-                gsutil cp "${changedFile:0:10}" $p || continue
-            done;
-          done;
+      # - run: gsutil version -l
+
+      # - name: Loop through the GCP buckets, and add the files
+      #   run: |
+      #     cd config 
+      #     echo "config paths: $CONFIG_PATHS"
+      #     buckets=$( gsutil ls "${{ env.STAGING }}" )
+      #     echo "Buckets:  $buckets"
+      #     for changedFile in $CONFIG_PATHS; do
+      #       for bucket in $buckets; do
+      #           echo "This is the bucket: $bucket "
+      #           p=$bucket$changedFile 
+      #           echo THIS IS: "$p"
+      #           echo "this is the changed file: " $changedFile
+      #           gsutil cp "${changedFile:0:10}" $p || continue
+      #       done;
+      #     done;
 
 
       # gs://locals-1/locales-staging/locales/en/home.json
