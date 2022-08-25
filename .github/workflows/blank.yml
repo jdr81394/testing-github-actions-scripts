@@ -45,7 +45,7 @@ jobs:
         run: |
           chmod +x ./scripts/updateBuckets.sh 
           echo ${{ steps.changed-files-specific.outputs.all_changed_files }}
-          ./scripts/updateBuckets.sh ${{ env.STAGING }} ${{ steps.changed-files-specific.outputs.all_changed_files }}
+          ./scripts/updateBuckets.sh ${{ env.STAGING }} $( echo $ALL_CHANGED_FILES )
         env: 
           ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
