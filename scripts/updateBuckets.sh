@@ -7,12 +7,12 @@ echo "2 : $2";
 
 for file in $2; do
     echo "File: $file"
-    if [[ ${file:0:7} = "public/locales/en/" ]]; then
-        englishFilePaths+=(${file:7})
+    if [[ ${file:0:18} = "public/locales/en/" ]]; then
+        englishFilePaths+=(${file:18})
     fi;
 done
 
-echo "This is the config path: $englishFilePaths"
+echo "This is the english files path: $englishFilePaths"
 echo "first argument: $1"
 
 # Get rid of the first value because it is going to be the parent directory of en/ede
@@ -37,8 +37,8 @@ germanFilePaths=()
 
 for file in $2; do
     echo "File again: $file"
-    if [[ ${file:0:7} = "public/locales/de/" ]]; then
-        germanFilePaths+=(${file:7})
+    if [[ ${file:0:18} = "public/locales/de/" ]]; then
+        germanFilePaths+=(${file:18})
     fi;
 done
 
