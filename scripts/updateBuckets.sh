@@ -46,7 +46,7 @@ done
 
 cd public/locales/de/ 
 
-for changedFile in $germanFilePaths; do
+for changedFile in ${germanFilePaths[@]}; do
     p=$1de/$changedFile 
     echo THIS IS: "$p"
     echo "this is the changed file: " $changedFile
