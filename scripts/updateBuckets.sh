@@ -5,7 +5,7 @@ configPaths=()
 
 for file in $2; do
     if [[ ${file:0:7} = "config/" ]]; then
-        configPaths+=(${file:7}})
+        configPaths+=(${file:7})
     fi;
 done
 
