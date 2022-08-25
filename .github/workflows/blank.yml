@@ -67,7 +67,7 @@ jobs:
                 p=$bucket$changedFile 
                 echo THIS IS: "$p"
                 echo "this is the changed file: " $changedFile
-                gsutil cp ${changedFile:0:9} $p || continue
+                gsutil cp "${changedFile:0:10}" $p || continue
             done;
           done;
 
