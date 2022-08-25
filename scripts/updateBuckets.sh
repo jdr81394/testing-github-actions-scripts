@@ -22,7 +22,7 @@ echo "first argument: $1"
 
 #  Loop through the GCP buckets, and add the files
 
-cd config 
+cd public/locales/en/ 
 
 for changedFile in $englishFilePaths; do
     p=$1en/$changedFile 
@@ -31,7 +31,7 @@ for changedFile in $englishFilePaths; do
     gsutil cp $changedFile $p || continue
 done;
 
-cd ..
+cd ../../../
 
 germanFilePaths=()
 
@@ -42,7 +42,7 @@ for file in $initialChangedFiles; do
     fi;
 done
 
-cd config
+cd cd public/locales/de/ 
 
 for changedFile in $germanFilePaths; do
     p=$1de/$changedFile 
