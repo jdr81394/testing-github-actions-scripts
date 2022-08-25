@@ -21,7 +21,6 @@ echo "first argument: $1"
 cd config 
 
 for changedFile in $englishFilePaths; do
-    echo "This is the bucket: $bucket "
     p=$1en/$changedFile 
     echo THIS IS: "$p"
     echo "this is the changed file: " $changedFile
@@ -42,7 +41,6 @@ done
 cd config
 
 for changedFile in $germanFilePaths; do
-    echo "This is the bucket: $bucket "
     p=$1de/$changedFile 
     echo THIS IS: "$p"
     echo "this is the changed file: " $changedFile
