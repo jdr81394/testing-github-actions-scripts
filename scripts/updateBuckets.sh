@@ -14,10 +14,14 @@ echo "first argument: $1"
 
 buckets=$( gsutil ls $1 )
 
+# Get rid of the first value because it is going to be the parent directory of en/ede
+unset buckets[0]
+
 echo "Buckets:  $buckets"
 #  Loop through the GCP buckets, and add the files
 
 cd config 
+
 for changedFile in $configPaths; do
     for bucket in $buckets; do
         echo "This is the bucket: $bucket "
