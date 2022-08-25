@@ -44,80 +44,16 @@ jobs:
       - name: Run Update
         run: |
           chmod +x ./scripts/updateBuckets.sh 
-          echo ${{ steps.changed-files-specific.outputs.all_changed_files }}
+
           first=()
-          echo "github ref :" ${GITHUB_REF##*/}
+
           if [[ ${GITHUB_REF##*/} == master  ]]; then
-            echo "in if"
             first=$( echo ${{ env.PRODUCTION }} )
           else
-            echo "in the else"
             first=$( echo ${{ env.STAGING }} )
           fi
-
           second=$( echo ${{ steps.changed-files-specific.outputs.all_changed_files }} )
 
-          echo "First: " $first
           ./scripts/updateBuckets.sh $first $second
-        env: 
-          ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
-      # - name: Run step for all changed files and put into Github Env
-      #   run: |
-      #     configPaths=()
-
-      #     for file in ${{ steps.changed-files-specific.outputs.all_changed_files }}; do
-      #       if [[ ${file:0:7} = "config/" ]]; then
-      #           configPaths+=(${file:7}})
-      #       fi;
-      #     done
-
-      #     echo "This is the config path: $configPaths"
-      #     echo "CONFIG_PATHS=${configPaths[@]}" >> $GITHUB_ENV
-
-      # - run: gsutil version -l
-
-      # - name: Loop through the GCP buckets, and add the files
-      #   run: |
-      #     cd config 
-      #     echo "config paths: $CONFIG_PATHS"
-      #     buckets=$( gsutil ls "${{ env.STAGING }}" )
-      #     echo "Buckets:  $buckets"
-      #     for changedFile in $CONFIG_PATHS; do
-      #       for bucket in $buckets; do
-      #           echo "This is the bucket: $bucket "
-      #           p=$bucket$changedFile 
-      #           echo THIS IS: "$p"
-      #           echo "this is the changed file: " $changedFile
-      #           gsutil cp "${changedFile:0:10}" $p || continue
-      #       done;
-      #     done;
-
-
-      # gs://locals-1/locales-staging/locales/en/home.json
-      # gs://locals-1/locales-staging/locales/en/home.json
-      #
-
-      # - name: Get all bucket files that exist and put into Github ENV
-      #   run: |
-      #     gsbuckets=$(gsutil ls "${{ env.STAGING }}" )
-      #     fileArr=()
-      #     for bucketFile in $gsbuckets; do
-      #       fileArr+=$( echo $bucketFile | rev | cut -d'/' -f1 | rev )
-      #     done;
-
-      #     echo "gcpBuckets=$fileArr" >> $GITHUB_ENV
-
-      # - name: Loop through the GCP buckets, and see if any of the buckets match in name
-      #   run: |
-      #     for changedFile in $CONFIG_PATHS; do
-      #       for bucketFile in $GCP_BUCKETS; do
-      #         fileInBucket=$( echo $bucketFile | rev | cut -d'/' -f1 | rev)
-      #         if [[ changedFile == fileInBucket ]]; then
-      #           gsutil cp changedFile "$STAGING"/"changedFile"
-      #         fi;
-      #       done;
-      #     done;
-      #   env:
-      #     CONFIG_PATHS: ${{ env.configPaths }}
-      #     GCP_BUCKETS: ${{ env.gcpBuckets }}
+  
