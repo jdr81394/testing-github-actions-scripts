@@ -4,6 +4,7 @@
 englishFilePaths=()
 
 for file in $2; do
+    echo "File: $file"
     if [[ ${file:0:7} = "public/locales/en/" ]]; then
         englishFilePaths+=(${file:7})
     fi;
@@ -33,6 +34,7 @@ cd ..
 germanFilePaths=()
 
 for file in $2; do
+    echo "File again: $file"
     if [[ ${file:0:7} = "public/locales/de/" ]]; then
         germanFilePaths+=(${file:7})
     fi;
