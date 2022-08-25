@@ -42,11 +42,11 @@ jobs:
 
       
       - name: Run Update
-          run: |
-            chmod +x ./scripts/updateBuckets.sh 
-            ./scripts/updateBuckets.sh ${{ env.STAGING }} ${{ env.ALL_CHANGED_FILES }}
-          env: 
-            ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
+        run: |
+          chmod +x ./scripts/updateBuckets.sh 
+          ./scripts/updateBuckets.sh ${{ env.STAGING }} ${{ env.ALL_CHANGED_FILES }}
+        env: 
+          ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
       # - name: Run step for all changed files and put into Github Env
       #   run: |
