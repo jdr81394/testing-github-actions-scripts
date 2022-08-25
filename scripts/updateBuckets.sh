@@ -12,7 +12,7 @@ done
 echo "This is the config path: $configPaths"
 echo "first argument: $1"
 
-buckets=( "$1en/" "$1de/")
+buckets=( "$1""en/" "$1""de/")
 
 # Get rid of the first value because it is going to be the parent directory of en/ede
 
