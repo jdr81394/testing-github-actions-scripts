@@ -10,8 +10,9 @@ englishFilePaths=()
 
 
 for file in $initialChangedFiles; do
+    echo "This is the file: " $file
     if [[ ${file:0:18} == "public/locales/en/" ]]; then
-        englishFilePaths+=( ${file:18} )
+        englishFilePaths+=(${file:18})
     fi;
 done
 
