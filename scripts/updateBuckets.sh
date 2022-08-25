@@ -26,7 +26,7 @@ echo "first argument: $1"
 
 cd public/locales/en/ 
 
-for changedFile in $englishFilePaths; do
+for changedFile in ${englishFilePaths[@]}; do
     p=$1en/$changedFile 
     echo THIS IS: "$p"
     echo "this is the changed file: " $changedFile
@@ -40,7 +40,7 @@ germanFilePaths=()
 for file in $initialChangedFiles; do
     echo "File again: $file"
     if [[ ${file:0:18} == "public/locales/de/" ]]; then
-        germanFilePaths+=(${file:18})
+        germanFilePaths+=("${file:18}")
     fi;
 done
 
