@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "develop-whitelabel", "master" ]
+  # pull_request:
+  #   branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       STAGING: "gs://locals-1/locales-staging/locales/"
-      PRODUCTION: ""
+      PRODUCTION: "gs://locals-1/locales-prod/locales/"
 
     steps:
       - uses: actions/checkout@v3
@@ -45,8 +45,20 @@ jobs:
         run: |
           chmod +x ./scripts/updateBuckets.sh 
           echo ${{ steps.changed-files-specific.outputs.all_changed_files }}
+          first=()
+          echo "github ref :" ${GITHUB_REF##*/}
+          if [[ ${GITHUB_REF##*/} == master  ]]; then
+            echo "in if"
+            first=$( echo ${{ env.PRODUCTION }} )
+          else
+            echo "in the else"
+            first=$( echo ${{ env.STAGING }} )
+          fi
+
           second=$( echo ${{ steps.changed-files-specific.outputs.all_changed_files }} )
-          ./scripts/updateBuckets.sh ${{ env.STAGING }} $second
+
+          echo "First: " $first
+          ./scripts/updateBuckets.sh $first $second
         env: 
           ALL_CHANGED_FILES: ${{ steps.changed-files-specific.outputs.all_changed_files }}
 
