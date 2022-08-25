@@ -1,11 +1,15 @@
 #!/bin/bash
 
 #  Run step for all changed translation files files and put into Github Env
+
+initialChangedFiles=$( echo $@ )
+
+echo "initially changed files " $initialChangedFiles
+
 englishFilePaths=()
 
-echo "2 : $2";
 
-for file in ${2[@]}; do
+for file in $initialChangedFiles; do
     if [[ ${file:0:18} == "public/locales/en/" ]]; then
         englishFilePaths+=( ${file:18} )
     fi;
@@ -31,7 +35,7 @@ cd ..
 
 germanFilePaths=()
 
-for file in ${2[@]}; do
+for file in $initialChangedFiles; do
     echo "File again: $file"
     if [[ ${file:0:18} == "public/locales/de/" ]]; then
         germanFilePaths+=(${file:18})
